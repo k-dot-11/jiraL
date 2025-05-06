@@ -3,9 +3,16 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import axios from "axios";
 import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import path from "path";
 
 // Load environment variables
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({path : path.resolve(__dirname , ".env")});
 
 const JIRA_API = process.env.JIRA_API
 const JIRA_DOMAIN = process.env.JIRA_DOMAIN
@@ -311,5 +318,6 @@ server.tool(
 
 // Start receiving messages on stdin and sending messages on stdout
 const transport = new StdioServerTransport();
-console.error("Jira MCP Server starting...");
+console.log("Jira MCP Server starting...");
+console.log(`${JIRA_EMAIL}:${JIRA_API}`)
 await server.connect(transport);
