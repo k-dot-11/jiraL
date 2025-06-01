@@ -1,6 +1,1 @@
-
-
-C
-
-        }
-    },
+## An MCP Server for everything Jira
